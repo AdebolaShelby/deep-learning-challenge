@@ -37,6 +37,9 @@ From Alphabet Soup’s business team, we have a CSV containing more than 34,000 
     * Read the charity_data.csv file into a Pandas DataFrame.
 
     * Drop non-beneficial ID columns (EIN and NAME).
+        * EIN: Employer Identification Number (ID column, not useful for prediction).
+
+        * NAME: Name of the organization (ID column, not useful for prediction).
 
     * Identify and replace rare categorical variables in APPLICATION_TYPE and CLASSIFICATION columns with "Other".
 
@@ -44,10 +47,27 @@ From Alphabet Soup’s business team, we have a CSV containing more than 34,000 
 
     * Split the preprocessed data into features (X) and target (y) arrays.
 
+        * Target Variable
+            * IS_SUCCESSFUL: This variable indicates whether the money was used effectively and is the target variable for the model.
+            
+        *Feature Variables
+            * APPLICATION_TYPE: Type of application.
+            * AFFILIATION: Affiliated sector of industry.
+            * CLASSIFICATION: Government organization classification.
+            * USE_CASE: Use case for funding.
+            * ORGANIZATION: Organization type.
+            * STATUS: Active status.
+            * INCOME_AMT: Income classification.
+            * SPECIAL_CONSIDERATIONS: Special considerations for application.
+            * ASK_AMT: Funding amount requested.
+
+        * Variables to Remove
+            * EIN: Employer Identification Number (ID column, not useful for prediction).
+            * NAME: Name of the organization (ID column, not useful for prediction).
+
     * Split the data into training and testing datasets.
 
     * Scale the feature data using StandardScaler.
-
 
 
 ## Step 2: Compile, Train, and Evaluate the Model:
@@ -56,15 +76,30 @@ From Alphabet Soup’s business team, we have a CSV containing more than 34,000 
 
     * Add multiple hidden layers with appropriate activation functions.
 
-    * The first hidden layer's input_dim was X_train_scaled.shape[1]
+        * Neurons:
+
+            * First Hidden Layer: 256 neurons
+            * Second Hidden Layer: 128 neurons
+            * Third Hidden Layer: 64 neurons
+            * Fourth Hidden Layer: 32 neurons
+            
+        * Layers:
+
+            * Input Layer: Defined by input_dim=X_train_scaled.shape[1]
+            * Hidden Layers: Four hidden layers with the specified number of neurons
+            * Dropout Layers: Two dropout layers with a dropout rate of 0.2
+           *  Output Layer: 1 neuron with a sigmoid activation function
+       
+        * Activation Functions:
+
+            * Hidden Layers: ReLU (Rectified Linear Unit)
+            * Output Layer: Sigmoid
 
         * Why Did I Use X_train_scaled.shape[1]?
             
             * Compatibility: The neural network needs to know the number of input features to correctly process the input data. Setting input_dim to X_train_scaled.shape[1] ensures that the first hidden layer has the correct number of input nodes to match the feature set.
             
             * Model Initialization: Properly initializing the input dimension is crucial for the model to learn from the data. It ensures that each feature in the input data is connected to the neurons in the first hidden layer.
-
-    * Add dropout layers to prevent overfitting.
 
         * Why Did I Use Two Dropout Layers?
 
@@ -86,6 +121,13 @@ From Alphabet Soup’s business team, we have a CSV containing more than 34,000 
 
     * Evaluate the model using the test data to determine the loss and accuracy.
 
+## Reasoning for Configuration
+
+* Neurons: The number of neurons in each layer was chosen to provide sufficient capacity for the model to learn complex patterns in the data.
+
+* Layers: Multiple hidden layers were used to capture hierarchical representations of the data.
+
+* Activation Functions: ReLU was chosen for hidden layers due to its effectiveness in deep learning, and sigmoid was used for the output layer to produce a probability for binary classification.
 
 ## Step 3: Save the Model:
 
@@ -94,27 +136,39 @@ From Alphabet Soup’s business team, we have a CSV containing more than 34,000 
 
 # Result Summary
 
-## Model Training:
+## Model Performance
 
-    * A neural network model was trained using the preprocessed charity dataset.
+* Target Performance: The target accuracy was 75%.
+* Achieved Performance: The final accuracy score achieved was approximately 77.81%, which is higher than the target accuracy.
 
-    * The model architecture included multiple hidden layers with ReLU activation functions and dropout layers to mitigate overfitting.
+## Steps Taken to Increase Model Performance
 
-    * Early stopping was employed during training to prevent overfitting.
+1. Data Preprocessing:
 
-## Model Evaluation:
+    * Handled missing values and encoded categorical variables.
+    * Scaled the feature data using StandardScaler.
+2. Model Architecture:
 
-    * The model was evaluated using the test dataset.
+    * Added multiple hidden layers with an increasing number of neurons.
+    * Included dropout layers to prevent overfitting.
+3. Training Parameters:
 
-    * The final accuracy score achieved was approximately 77.81%, surpassing the target accuracy of 75%.
+    * Used early stopping to halt training when the validation loss stopped improving, preventing overfitting and saving computational resources.
+    * Trained the model for up to 100 epochs with a batch size of 32.
+4. Hyperparameter Tuning:
+
+    * Experimented with different numbers of neurons and layers to find the optimal configuration.
+## Summary
+* Neurons: 256, 128, 64, 32
+* Layers: 4 hidden layers, 2 dropout layers, 1 output layer
+* Activation Functions: ReLU for hidden layers, Sigmoid for output layer
+* Achieved Performance: 77.81% accuracy
+* Steps Taken: Data preprocessing, model architecture adjustments, early stopping, and hyperparameter tuning.
 
 
 ## Model Export:
 
-    * The trained model was successfully saved to an HDF5 file named AlphabetSoupCharity.h5.
-
-
-Overall, after various rounds of optimizations, the model performed well, achieving an accuracy higher than the desired 75%, and was saved for future use or further optimization.
+* The trained model was successfully saved to an HDF5 file named AlphabetSoupCharity.h5.
 
 
 # Limitations
