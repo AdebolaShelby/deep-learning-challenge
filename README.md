@@ -50,7 +50,7 @@ From Alphabet Soup’s business team, we have a CSV containing more than 34,000 
 
 
 
-## Step2: Compile, Train, and Evaluate the Model:
+## Step 2: Compile, Train, and Evaluate the Model:
 
     * Define a deep neural network model using TensorFlow and Keras.
 
@@ -117,7 +117,7 @@ From Alphabet Soup’s business team, we have a CSV containing more than 34,000 
 Overall, after various rounds of optimizations, the model performed well, achieving an accuracy higher than the desired 75%, and was saved for future use or further optimization.
 
 
-## Limitations
+# Limitations
 
 Here are some potential limitations:
 
