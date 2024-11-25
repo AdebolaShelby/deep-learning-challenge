@@ -50,33 +50,27 @@ From Alphabet Soup’s business team, we have a CSV containing more than 34,000 
 
 
 
-## Compile, Train, and Evaluate the Model:
+## Step2: Compile, Train, and Evaluate the Model:
 
     * Define a deep neural network model using TensorFlow and Keras.
 
     * Add multiple hidden layers with appropriate activation functions.
 
-    * The first layer's input_dim was X_train_scaled.shape[1]
+    * The first hidden layer's input_dim was X_train_scaled.shape[1]
 
         * Why Did I Use X_train_scaled.shape[1]?
             
-            * Compatibility: The neural network needs to know the number of input features to correctly process the input data.
+            * Compatibility: The neural network needs to know the number of input features to correctly process the input data. Setting input_dim to X_train_scaled.shape[1] ensures that the first hidden layer has the correct number of input nodes to match the feature set.
             
-            Setting input_dim to X_train_scaled.shape[1] ensures that the first hidden layer has the correct number of input nodes to match the feature set.
-            
-            * Model Initialization: Properly initializing the input dimension is crucial for the model to learn from the data.
-            It ensures that each feature in the input data is connected to the neurons in the first hidden layer.
+            * Model Initialization: Properly initializing the input dimension is crucial for the model to learn from the data. It ensures that each feature in the input data is connected to the neurons in the first hidden layer.
 
     * Add dropout layers to prevent overfitting.
 
         * Why Did I Use Two Dropout Layers?
 
-            * Prevent Overfitting: By adding dropout layers, the model is less likely to overfit the training data, which means it can generalize better to unseen data.
-            Dropout forces the network to learn more robust features by preventing it from relying too heavily on specific neurons.
+            * Prevent Overfitting: By adding dropout layers, the model is less likely to overfit the training data, which means it can generalize better to unseen data. Dropout forces the network to learn more robust features by preventing it from relying too heavily on specific neurons.
             
             * Improve Generalization: Dropout layers help improve the generalization of the model by ensuring that the network learns a more diverse set of features. This leads to better performance on the validation and test datasets.
-        
-
 
     * Compile the model with binary_crossentropy loss function and adam optimizer.
 
@@ -84,22 +78,16 @@ From Alphabet Soup’s business team, we have a CSV containing more than 34,000 
 
         * Why Did I Use EarlyStopping? 
 
-            * Prevent Overfitting: Training a model for too many epochs can lead to overfitting, where the model performs well on the training data but poorly on unseen data.
-            
-            EarlyStopping helps to halt training once the model's performance on the validation set stops improving, thus preventing overfitting.
+            * Prevent Overfitting: Training a model for too many epochs can lead to overfitting, where the model performs well on the training data but poorly on unseen data. EarlyStopping helps to halt training once the model's performance on the validation set stops improving, thus preventing overfitting.
 
-            * Save Computational Resources: Training deep neural networks can be computationally expensive and time-consuming.
+            * Save Computational Resources: Training deep neural networks can be computationally expensive and time-consuming. By stopping the training process early when no further improvement is observed, computational resources are saved.
 
-            By stopping the training process early when no further improvement is observed, computational resources are saved.
-
-            * Optimal Model Selection: EarlyStopping ensures that the best model (in terms of validation performance) is selected during training.
-            
-            The restore_best_weights=True parameter ensures that the model weights are reverted to the best state observed during training.
+            * Optimal Model Selection: EarlyStopping ensures that the best model (in terms of validation performance) is selected during training. The restore_best_weights=True parameter ensures that the model weights are reverted to the best state observed during training.
 
     * Evaluate the model using the test data to determine the loss and accuracy.
 
 
-## Save the Model:
+## Step 3: Save the Model:
 
     * Export the trained model to an HDF5 file named AlphabetSoupCharity.h5.
 
