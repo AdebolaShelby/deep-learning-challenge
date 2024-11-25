@@ -164,23 +164,20 @@ While the model has achieved a good accuracy score, it is important to be aware 
 We can use a Random Forest Classifier to solve this classification problem. Random Forest is an ensemble learning method that combines multiple decision trees to improve the overall performance and robustness of the model.
 
 ## Explanation
-Robustness:
 
-Random Forests are less prone to overfitting compared to individual decision trees. By averaging the results of multiple trees, the model generalizes better to unseen data.
-Feature Importance:
+* Robustness: Random Forests are less prone to overfitting compared to individual decision trees. By averaging the results of multiple trees, the model generalizes better to unseen data.
 
-Random Forests provide insights into feature importance, helping to identify which features contribute most to the prediction. This can be valuable for understanding the underlying patterns in the data.
-Handling Missing Values:
+* Feature Importance: Random Forests provide insights into feature importance, helping to identify which features contribute most to the prediction. This can be valuable for understanding the underlying patterns in the data.
 
-Random Forests can handle missing values more effectively than neural networks, making them more robust to imperfect data.
-Less Hyperparameter Sensitivity:
+* Handling Missing Values: Random Forests can handle missing values more effectively than neural networks, making them more robust to imperfect data.
 
-Random Forests are generally less sensitive to hyperparameter choices compared to neural networks. This can simplify the model tuning process.
-Scalability:
+* Less Hyperparameter Sensitivity: Random Forests are generally less sensitive to hyperparameter choices compared to neural networks. This can simplify the model tuning process.
 
-Random Forests can be parallelized, making them scalable to large datasets. This can be advantageous when dealing with large volumes of data.
-Implementation Example
-Here is an example of how you might implement a Random Forest Classifier using scikit-learn:
+* Scalability: Random Forests can be parallelized, making them scalable to large datasets. This can be advantageous when dealing with large volumes of data.
+
+## Implementation Example
+
+Here is an example of how we might implement a Random Forest Classifier using scikit-learn:
 
             import pandas as pd
             from sklearn.model_selection import train_test_split
