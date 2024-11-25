@@ -56,11 +56,45 @@ From Alphabet Soup’s business team, we have a CSV containing more than 34,000 
 
     * Add multiple hidden layers with appropriate activation functions.
 
+    * The first layer's input_dim was X_train_scaled.shape[1]
+
+        * Why Did I Use X_train_scaled.shape[1]?
+            
+            * Compatibility: The neural network needs to know the number of input features to correctly process the input data.
+            
+            Setting input_dim to X_train_scaled.shape[1] ensures that the first hidden layer has the correct number of input nodes to match the feature set.
+            
+            * Model Initialization: Properly initializing the input dimension is crucial for the model to learn from the data.
+            It ensures that each feature in the input data is connected to the neurons in the first hidden layer.
+
     * Add dropout layers to prevent overfitting.
+
+        * Why Did I Use Two Dropout Layers?
+
+            * Prevent Overfitting: By adding dropout layers, the model is less likely to overfit the training data, which means it can generalize better to unseen data.
+            Dropout forces the network to learn more robust features by preventing it from relying too heavily on specific neurons.
+            
+            * Improve Generalization: Dropout layers help improve the generalization of the model by ensuring that the network learns a more diverse set of features. This leads to better performance on the validation and test datasets.
+        
+
 
     * Compile the model with binary_crossentropy loss function and adam optimizer.
 
     * Train the model with early stopping callback to prevent overfitting.
+
+        * Why Did I Use EarlyStopping? 
+
+            * Prevent Overfitting: Training a model for too many epochs can lead to overfitting, where the model performs well on the training data but poorly on unseen data.
+            
+            EarlyStopping helps to halt training once the model's performance on the validation set stops improving, thus preventing overfitting.
+
+            * Save Computational Resources: Training deep neural networks can be computationally expensive and time-consuming.
+
+            By stopping the training process early when no further improvement is observed, computational resources are saved.
+
+            * Optimal Model Selection: EarlyStopping ensures that the best model (in terms of validation performance) is selected during training.
+            
+            The restore_best_weights=True parameter ensures that the model weights are reverted to the best state observed during training.
 
     * Evaluate the model using the test data to determine the loss and accuracy.
 
@@ -75,7 +109,9 @@ From Alphabet Soup’s business team, we have a CSV containing more than 34,000 
 ## Model Training:
 
     * A neural network model was trained using the preprocessed charity dataset.
+
     * The model architecture included multiple hidden layers with ReLU activation functions and dropout layers to mitigate overfitting.
+
     * Early stopping was employed during training to prevent overfitting.
 
 ## Model Evaluation:
@@ -87,6 +123,50 @@ From Alphabet Soup’s business team, we have a CSV containing more than 34,000 
 
 ## Model Export:
 
-The trained model was successfully saved to an HDF5 file named AlphabetSoupCharity.h5.
+    * The trained model was successfully saved to an HDF5 file named AlphabetSoupCharity.h5.
+
 
 Overall, after various rounds of optimizations, the model performed well, achieving an accuracy higher than the desired 75%, and was saved for future use or further optimization.
+
+
+## Limitations
+
+Here are some potential limitations:
+
+1. Overfitting:
+
+Despite using dropout layers and early stopping, the model might still overfit if the dataset is too small or not representative of the real-world scenario.
+
+2. Underfitting:
+
+If the model architecture is too simple or the training process is stopped too early, the model might underfit, meaning it won't capture the underlying patterns in the data.
+
+3. Data Quality:
+
+The model's performance heavily depends on the quality and quantity of the data. Noisy, incomplete, or biased data can lead to poor model performance.
+Feature Engineering:
+
+The model's success is also dependent on the quality of feature engineering. Important features might be missed, or irrelevant features might be included, affecting the model's accuracy.
+
+4. Hyperparameter Sensitivity:
+
+The model's performance can be sensitive to the choice of hyperparameters (e.g., number of layers, number of neurons, learning rate). Finding the optimal hyperparameters can be challenging and time-consuming.
+
+5. Computational Resources:
+
+Training deep neural networks can be computationally expensive and time-consuming, especially with large datasets and complex architectures.
+
+6. Interpretability:
+
+Neural networks are often considered "black boxes" because it can be difficult to interpret how they make decisions. This lack of interpretability can be a limitation in applications where understanding the decision-making process is crucial.
+
+7. Scalability:
+
+As the size of the dataset grows, the model might require more computational resources and time to train. This can be a limitation in real-time or resource-constrained environments.
+
+8. Generalization:
+
+The model might not generalize well to new, unseen data if the training data is not diverse enough. This can lead to poor performance in real-world applications.
+
+## Summary
+While the model has achieved a good accuracy score, it is important to be aware of these limitations and consider them when deploying the model in a real-world scenario. Continuous monitoring, evaluation, and potential retraining with new data can help mitigate some of these limitations.
