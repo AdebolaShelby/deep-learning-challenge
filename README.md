@@ -78,10 +78,10 @@ From Alphabet Soup’s business team, we have a CSV containing more than 34,000 
 
         * Neurons:
 
-            * First Hidden Layer: 256 neurons
-            * Second Hidden Layer: 128 neurons
-            * Third Hidden Layer: 64 neurons
-            * Fourth Hidden Layer: 32 neurons
+            * First Hidden Layer: 80 neurons
+            * Second Hidden Layer: 40 neurons
+            * Third Hidden Layer: 10 neurons
+            * Fourth Hidden Layer: 5 neurons
             
         * Layers:
 
@@ -159,7 +159,7 @@ From Alphabet Soup’s business team, we have a CSV containing more than 34,000 
 
     * Experimented with different numbers of neurons and layers to find the optimal configuration.
 ## Summary
-* Neurons: 256, 128, 64, 32
+* Neurons: 80, 40, 10, 5
 * Layers: 4 hidden layers, 2 dropout layers, 1 output layer
 * Activation Functions: ReLU for hidden layers, Sigmoid for output layer
 * Achieved Performance: 77.81% accuracy
