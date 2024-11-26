@@ -8,118 +8,118 @@ The nonprofit foundation Alphabet Soup wants a tool that can help it select the 
 
 From Alphabet Soup’s business team, we have a CSV containing more than 34,000 organizations that have received funding from Alphabet Soup over the years. Within this dataset are a number of columns that capture metadata about each organization, such as:
 
-    * EIN and NAME—Identification columns
+* EIN and NAME—Identification columns
 
-    * APPLICATION_TYPE—Alphabet Soup application type
+* APPLICATION_TYPE—Alphabet Soup application type
 
-    * AFFILIATION—Affiliated sector of industry
+* AFFILIATION—Affiliated sector of industry
 
-    * CLASSIFICATION—Government organization classification
+* CLASSIFICATION—Government organization classification
 
-    * USE_CASE—Use case for funding
+* USE_CASE—Use case for funding
 
-    * ORGANIZATION—Organization type
+* ORGANIZATION—Organization type
 
-    * STATUS—Active status
+* STATUS—Active status
 
-    * INCOME_AMT—Income classification
+* INCOME_AMT—Income classification
 
-    * SPECIAL_CONSIDERATIONS—Special considerations for application
+* SPECIAL_CONSIDERATIONS—Special considerations for application
 
-    * ASK_AMT—Funding amount requested
+* ASK_AMT—Funding amount requested
 
-    * IS_SUCCESSFUL—Was the money used effectively
+* IS_SUCCESSFUL—Was the money used effectively
 
 # Execution
 
 ## Step 1: Preprocess the Data:
 
-    * Read the charity_data.csv file into a Pandas DataFrame.
+* Read the charity_data.csv file into a Pandas DataFrame.
 
-    * Drop non-beneficial ID columns (EIN and NAME).
+* Drop non-beneficial ID columns (EIN and NAME).
+    * EIN: Employer Identification Number (ID column, not useful for prediction).
+
+    * NAME: Name of the organization (ID column, not useful for prediction).
+
+* Identify and replace rare categorical variables in APPLICATION_TYPE and CLASSIFICATION columns with "Other".
+
+* Encode categorical variables using pd.get_dummies().
+
+* Split the preprocessed data into features (X) and target (y) arrays.
+
+    * Target Variable
+        * IS_SUCCESSFUL: This variable indicates whether the money was used effectively and is the target variable for the model.
+            
+    * Feature Variables
+        * APPLICATION_TYPE: Type of application.
+        * AFFILIATION: Affiliated sector of industry.
+        * CLASSIFICATION: Government organization classification.
+        * USE_CASE: Use case for funding.
+        * ORGANIZATION: Organization type.
+        * STATUS: Active status.
+        * INCOME_AMT: Income classification.
+        * SPECIAL_CONSIDERATIONS: Special considerations for application.
+        * ASK_AMT: Funding amount requested.
+
+    * Variables to Remove
         * EIN: Employer Identification Number (ID column, not useful for prediction).
-
         * NAME: Name of the organization (ID column, not useful for prediction).
 
-    * Identify and replace rare categorical variables in APPLICATION_TYPE and CLASSIFICATION columns with "Other".
+* Split the data into training and testing datasets.
 
-    * Encode categorical variables using pd.get_dummies().
-
-    * Split the preprocessed data into features (X) and target (y) arrays.
-
-        * Target Variable
-            * IS_SUCCESSFUL: This variable indicates whether the money was used effectively and is the target variable for the model.
-            
-        *Feature Variables
-            * APPLICATION_TYPE: Type of application.
-            * AFFILIATION: Affiliated sector of industry.
-            * CLASSIFICATION: Government organization classification.
-            * USE_CASE: Use case for funding.
-            * ORGANIZATION: Organization type.
-            * STATUS: Active status.
-            * INCOME_AMT: Income classification.
-            * SPECIAL_CONSIDERATIONS: Special considerations for application.
-            * ASK_AMT: Funding amount requested.
-
-        * Variables to Remove
-            * EIN: Employer Identification Number (ID column, not useful for prediction).
-            * NAME: Name of the organization (ID column, not useful for prediction).
-
-    * Split the data into training and testing datasets.
-
-    * Scale the feature data using StandardScaler.
+* Scale the feature data using StandardScaler.
 
 
 ## Step 2: Compile, Train, and Evaluate the Model:
 
-    * Define a deep neural network model using TensorFlow and Keras.
+* Define a deep neural network model using TensorFlow and Keras.
 
-    * Add multiple hidden layers with appropriate activation functions.
+* Add multiple hidden layers with appropriate activation functions.
 
-        * Neurons:
+    * Neurons:
 
-            * First Hidden Layer: 80 neurons
-            * Second Hidden Layer: 40 neurons
-            * Third Hidden Layer: 10 neurons
-            * Fourth Hidden Layer: 5 neurons
+        * First Hidden Layer: 80 neurons
+        * Second Hidden Layer: 40 neurons
+        * Third Hidden Layer: 10 neurons
+        * Fourth Hidden Layer: 5 neurons
             
-        * Layers:
+    * Layers:
 
-            * Input Layer: Defined by input_dim=X_train_scaled.shape[1]
-            * Hidden Layers: Four hidden layers with the specified number of neurons
-            * Dropout Layers: Two dropout layers with a dropout rate of 0.2
-           *  Output Layer: 1 neuron with a sigmoid activation function
+        * Input Layer: Defined by input_dim=X_train_scaled.shape[1]
+        * Hidden Layers: Four hidden layers with the specified number of neurons
+        * Dropout Layers: Two dropout layers with a dropout rate of 0.2
+        * Output Layer: 1 neuron with a sigmoid activation function
        
-        * Activation Functions:
+    * Activation Functions:
 
-            * Hidden Layers: ReLU (Rectified Linear Unit)
-            * Output Layer: Sigmoid
+        * Hidden Layers: ReLU (Rectified Linear Unit)
+        * Output Layer: Sigmoid
 
-        * Why Did I Use X_train_scaled.shape[1]?
+    * Why Did I Use X_train_scaled.shape[1]?
             
-            * Compatibility: The neural network needs to know the number of input features to correctly process the input data. Setting input_dim to X_train_scaled.shape[1] ensures that the first hidden layer has the correct number of input nodes to match the feature set.
+        * Compatibility: The neural network needs to know the number of input features to correctly process the input data. Setting input_dim to X_train_scaled.shape[1] ensures that the first hidden layer has the correct number of input nodes to match the feature set.
             
-            * Model Initialization: Properly initializing the input dimension is crucial for the model to learn from the data. It ensures that each feature in the input data is connected to the neurons in the first hidden layer.
+        * Model Initialization: Properly initializing the input dimension is crucial for the model to learn from the data. It ensures that each feature in the input data is connected to the neurons in the first hidden layer.
 
-        * Why Did I Use Two Dropout Layers?
+    * Why Did I Use Two Dropout Layers?
 
-            * Prevent Overfitting: By adding dropout layers, the model is less likely to overfit the training data, which means it can generalize better to unseen data. Dropout forces the network to learn more robust features by preventing it from relying too heavily on specific neurons.
+        * Prevent Overfitting: By adding dropout layers, the model is less likely to overfit the training data, which means it can generalize better to unseen data. Dropout forces the network to learn more robust features by preventing it from relying too heavily on specific neurons.
             
-            * Improve Generalization: Dropout layers help improve the generalization of the model by ensuring that the network learns a more diverse set of features. This leads to better performance on the validation and test datasets.
+        * Improve Generalization: Dropout layers help improve the generalization of the model by ensuring that the network learns a more diverse set of features. This leads to better performance on the validation and test datasets.
 
-    * Compile the model with binary_crossentropy loss function and adam optimizer.
+* Compile the model with binary_crossentropy loss function and adam optimizer.
 
-    * Train the model with early stopping callback to prevent overfitting.
+* Train the model with early stopping callback to prevent overfitting.
 
-        * Why Did I Use EarlyStopping? 
+    * Why Did I Use EarlyStopping? 
 
-            * Prevent Overfitting: Training a model for too many epochs can lead to overfitting, where the model performs well on the training data but poorly on unseen data. EarlyStopping helps to halt training once the model's performance on the validation set stops improving, thus preventing overfitting.
+        * Prevent Overfitting: Training a model for too many epochs can lead to overfitting, where the model performs well on the training data but poorly on unseen data. EarlyStopping helps to halt training once the model's performance on the validation set stops improving, thus preventing overfitting.
 
-            * Save Computational Resources: Training deep neural networks can be computationally expensive and time-consuming. By stopping the training process early when no further improvement is observed, computational resources are saved.
+        * Save Computational Resources: Training deep neural networks can be computationally expensive and time-consuming. By stopping the training process early when no further improvement is observed, computational resources are saved.
 
-            * Optimal Model Selection: EarlyStopping ensures that the best model (in terms of validation performance) is selected during training. The restore_best_weights=True parameter ensures that the model weights are reverted to the best state observed during training.
+        * Optimal Model Selection: EarlyStopping ensures that the best model (in terms of validation performance) is selected during training. The restore_best_weights=True parameter ensures that the model weights are reverted to the best state observed during training.
 
-    * Evaluate the model using the test data to determine the loss and accuracy.
+* Evaluate the model using the test data to determine the loss and accuracy.
 
 ## Reasoning for Configuration
 
