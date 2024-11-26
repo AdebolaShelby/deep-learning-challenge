@@ -131,7 +131,7 @@ From Alphabet Soup’s business team, we have a CSV containing more than 34,000 
 
 ## Step 3: Save the Model:
 
-    * Export the trained model to an HDF5 file named AlphabetSoupCharity.h5.
+* Export the trained model to an HDF5 file named AlphabetSoupCharity.h5.
 
 
 # Result Summary
